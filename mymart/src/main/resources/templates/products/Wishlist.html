@@ -1,0 +1,132 @@
+
+ <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Wishlist</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #343a40;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #fff;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        li:hover {
+            transform: translateY(-3px);
+            transition: transform 0.3s ease;
+        }
+
+        .remove-btn {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .remove-btn:hover {
+            background-color: #c82333;
+        }
+
+        .product-image {
+            max-width: 100px;
+            max-height: 100px;
+            margin-right: 10px;
+        }
+
+        .product-price {
+            font-weight: bold;
+            color: #007bff;
+        }
+        
+        
+        /* languages banned hide css */
+
+.goog-te-banner-frame {
+    display:none !important
+    }
+  
+  .skiptranslate {
+    display:none !important
+    }
+    body {
+ top: 0px !important; 
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Wishlist</h1>
+        <ul class="wishlist-items">
+            <li th:each="item : ${wishlist}">
+                <div class="row align-items-center">
+                    <div class="col-sm-2">
+                        
+                    <img th:src="@{'/images/' + ${item.product.imageFileName}}" class="img-fluid" alt="Product Image">
+                        
+                    </div>
+                    <div class="col-sm-6">
+                        <span th:text="${item.product.name}"></span>
+                    </div>
+                    <!--<div class="col-sm-2">
+                        <span class="product-price" th:text="${'Price: $' + item.product.price}"></span>
+                    </div>-->
+                    
+                    <div class="col-sm-2">
+    <span class="product-price" th:if="${item.product.discountedPrice != null}" th:text="${'Price: $' + item.product.discountedPrice}"></span>
+    <span class="product-price" th:unless="${item.product.discountedPrice != null}" th:text="${'Price: $' + item.product.price}"></span>
+</div>
+
+                    <div class="col-sm-2 text-right">
+                        <form th:action="@{/wishlist/remove}" method="post">
+                            <input type="hidden" name="productId" th:value="${item.product.id}" />
+                            <button type="submit" class="remove-btn">Remove</button>
+                        </form>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    
+    <!-- google languages script -->
+
+  <script type="text/javascript"> 
+   function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+  }
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+                  
+    
+  
+  
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>
+ 

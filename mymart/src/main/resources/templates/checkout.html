@@ -1,0 +1,121 @@
+
+ 
+ <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout</title>
+<link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+<link
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    rel="stylesheet">
+
+<style>
+body {
+    background-color: #f8f9fa; /* Light gray background */
+    color: #343a40; /* Dark gray text */
+}
+
+/* Add shadow effect to specific containers */
+.cart-container {
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.order-summary-container {
+    margin-top: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+</style>
+</head>
+<body>
+<h1 class="text-center text-danger"><strong><u>Checkout</u></strong></h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-7">
+
+            <form id="msform" action="/checkout" method="post">
+                <input type="hidden" name="${_csrf.parameterName}"
+                    value="${_csrf.token}" />
+
+                <!-- Your Cart Container -->
+                <div class="cart-container">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title text-primary" ><u>Your Cart</u></h4>
+                            <ul class="list-group">
+                                <th:block th:each="cartItem : ${cartItems}">
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <img th:src="@{'/images/' + ${cartItem.product.imageFileName}}" class="img-fluid" alt="Product Image">
+                                            </div>
+                                            <div class="col-9">
+                                                <b><h5 class="card-subtitle mb-2" th:text="${cartItem.product.name}"></h5></b>
+                                                <p class="card-text">
+                                                    Brand: <span th:text="${cartItem.product.brand}"></span><br>
+                                                    <!-- Price: $<span th:text="${cartItem.product.price}"></span><br> -->
+                                                    <p class="card-text">
+                                                        <!-- Check if the product has a deal -->
+                                                        <span th:if="${cartItem.product.deal != null}">
+                                                            Discounted Price: $<span th:text="${cartItem.product.discountedPrice}"></span>
+                                                        </span>
+                                                        <!-- If the product does not have a deal, display the original price -->
+                                                        <span th:unless="${cartItem.product.deal != null}">
+                                                            Price: $<span th:text="${cartItem.product.price}"></span>
+                                                        </span>
+                                                    </p>
+                                                    Quantity: <span th:text="${cartItem.quantity}"></span> Qty
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </th:block>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-5">
+            <!-- Order Summary Container -->
+            <div class="order-summary-container">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title text-primary"><u>Order Summary</u></h4>
+                        <h6>Subtotal: <span th:text="${subtotal}"></span></h6>
+                        <h6>Shipping Charges: <span th:text="${shipping}"></span></h6>
+                        <h6 class="text-danger">Total Amount: <span th:text="${total}" class="text-success"></span></h6>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <h3>Select Shipping Address</h3>
+            <form id="msform" action="/payment" method="get">
+                <div class="address-box">
+                    <th:block th:each="address : ${addresses}">
+                        <label> <input type="radio" name="addressId" th:value="${address.id}" required> <b> <span th:text="${address.name + ' - ' + address.mobile}"></span></b> <br>
+                            <span th:text="${address.addressLine1 + ', ' + address.city + ', ' + address.state + ', ' + address.country +', ' +address.zipCode}"></span>
+                        </label>
+                        <a th:href="@{'/editAddress/' + ${address.id}}"> <i class="fas fa-edit"></i></a>
+                        <a th:href="@{'/deleteAddress/' + ${address.id}}" style="color: red;"> <i class="fas fa-trash-alt"></i></a>
+                        <br><br>
+                    </th:block>
+                </div>
+                <a href="/addAddress" class="btn btn-primary btn-block">Add New Address</a>
+                <button type="submit" class="btn btn-block mt-3" style="background-color:#FF4500;">Proceed to Payment</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

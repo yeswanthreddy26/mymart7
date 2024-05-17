@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Cart</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <style>
+    .cart-item {
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 10px;
+    }
+
+    .card-subtitle {
+      font-size: 14px;
+    }
+
+    .card-text {
+      font-size: 12px;
+    }
+
+    .btn-danger {
+      background-color: #dc3545;
+      border-color: #dc3545;
+    }
+
+    .btn-danger:hover {
+      background-color: #c82333;
+      border-color: #bd2130;
+    }
+
+    .cart-total {
+      background-color: #f8f9fa;
+      border-radius: 5px;
+      padding: 10px;
+      margin-top: 15px;
+      text-align: right;
+    }
+
+    .checkout-btn {
+      background-color: #007bff;
+      border-color: #007bff;
+      color: #fff;
+    }
+
+    .checkout-btn:hover {
+      background-color: #0056b3;
+      border-color: #0056b3;
+    }
+
+    /* Custom styles for quantity update buttons */
+    .quantity-update-btn {
+      font-size: 16px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      margin-right: 5px;
+     
+      border: none;
+    }
+
+
+
+.quantity-input {
+      width: 40px; /* Square shape for quantity input */
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    .quantity-btn {
+      width: 30px; /* Circular shape for + and - buttons */
+      height: 30px;
+      border-radius: 50%;
+      border: none;
+      
+      font-size: 14px;
+      margin-left: 5px;
+    }
+
+   
+
+    .quantity-update-btn:hover {
+      background-color: #0056b3;
+    }
+    
+    /* languages banned hide css */
+
+.goog-te-banner-frame {
+    display:none !important
+    }
+  
+  .skiptranslate {
+    display:none !important
+    }
+    body {
+ top: 0px !important; 
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="card mb-3">
+          <div class="card-header " style="background-color: #ADD8E6;color: black;">
+
+
+<h4 class="card-title text-center">
+    Welcome, <span th:text="${#authentication.principal.name}"></span>!&nbsp;    Here is your cart!
+</h4>
+
+          </div>
+          <div class="card-body">
+            <!-- Iterate over cart items and display each item -->
+            <div th:each="cartItem : ${cartItems}" class="row cart-item mb-3">
+              <div class="col-3">
+<a th:href="@{cart/viewproduct(id=${cartItem.product.id})}"><img th:src="@{'/images/' + ${cartItem.product.imageFileName}}" class="img-fluid" alt="Product Image"></a>              </div>
+              <div class="col-5">
+                <h6 class="card-subtitle mb-2 text-muted" th:text="${cartItem.product.name}"></h6>
+                
+                
+                <p class="card-text">
+    <!-- Check if the product has a deal -->
+    <span th:if="${cartItem.product.deal != null}">
+        Discounted Price: $<span th:text="${cartItem.product.discountedPrice}"></span>
+    </span>
+    <!-- If the product does not have a deal, display the original price -->
+    <span th:unless="${cartItem.product.deal != null}">
+        Price: $<span th:text="${cartItem.product.price}"></span>
+    </span>
+</p>
+
+                <p class="card-text">Quantity: 
+                  <form th:action="@{/cart/updateQuantity}" method="post">
+                    <input type="hidden" name="cartItemId" th:value="${cartItem.id}">
+                    <button type="submit" name="quantityChange" value="-1" class="quantity-update-btn">-</button>
+                    <span th:text="${cartItem.quantity}"></span>
+                    <button type="submit" name="quantityChange" value="1" class="quantity-update-btn">+</button>
+                  </form>
+                </p>
+              </div>
+             <!-- <div class="col-2">
+                <p class="card-text">Total: $<span th:text="${cartItem.quantity * cartItem.product.price}"></span></p>
+              </div>-->
+              
+              <div class="col-2">
+    <!-- Check if the product has a deal -->
+    <p class="card-text" th:if="${cartItem.product.deal != null}">
+        Total: $<span th:text="${cartItem.quantity * cartItem.product.discountedPrice}"></span>
+    </p>
+    <!-- If the product does not have a deal, calculate the total based on the original price -->
+    <p class="card-text" th:unless="${cartItem.product.deal != null}">
+        Total: $<span th:text="${cartItem.quantity * cartItem.product.price}"></span>
+    </p>
+</div>
+
+              <div class="col-2">
+                <form action="/cart/remove" method="post">
+                  <input type="hidden" name="cartItemId" th:value="${cartItem.id}">
+                  <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                </form>
+              </div>
+            </div>
+            <!-- Total Price -->
+            <div class="row cart-total">
+              <div class="col">
+                <h6 class="card-subtitle mb-2 text-muted">Total:</h6>
+                <h5 class="card-title">$<span th:text="${totalCartPrice}"></span></h5>
+              </div>
+            </div>
+             <div class="row mt-3">
+              <div class="col-md-6 mb-3">
+				   
+                <a href="/" class="btn btn-primary btn-block">Continue Shopping</a>
+              </div>
+               
+
+              <div class="col-md-6" th:if="${totalCartPrice!=0}" >
+               <a href="/checkout" class="btn checkout-btn btn-block">Proceed to Checkout</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+<!-- google languages script -->
+
+  <script type="text/javascript"> 
+   function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+  }
+</script>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+                  
+    
+  
+  
+
+
+
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>

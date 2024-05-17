@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <style>
+        body, h1, p {
+            margin: 10px;
+            padding: 10px;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+        /* Basic styling for body */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 130px;
+        }
+        /* Container for user profile */
+        .profile-container {
+            background-color: skyblue;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 550px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+        /* Heading style */
+        h1 {
+            font-size: 30px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        /* Style for user details */
+        .profile-details {
+            margin-bottom: 20px;
+            color: black;
+        }
+        .profile-details strong {
+            font-weight: bold;
+        }
+        /* Edit button style */
+        .edit-profile-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: black;
+            text-decoration: none;
+            border-radius: 4px;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
+        }
+        .edit-profile-link:hover {
+            background-color: #45a049;
+        }
+        /* Responsive styling */
+        @media (max-width: 768px) {
+            .profile-container {
+                max-width: 100%; /* Adjust width for smaller screens */
+            }
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>User Profile</h1>
+<div th:if="${user != null}" th:each="user : ${user}">
+    <div class="profile-container">
+        <div class="profile-details">
+            <p><strong>Name:</strong> <span th:text="${user.name}"></span></p>
+            <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+            <p><strong>Contact No:</strong> <span th:text="${user.contactNo}"></span></p>
+        </div>
+        <a class="edit-profile-link" th:href="@{/edit(name=${#authentication.principal.name})}">Edit Profile</a>
+    </div>
+</div>
+<div th:if="${user == null}">
+    <p>User profile not found.</p>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,210 @@
+<!-- 
+ 
+ <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User Orders</title>
+    Bootstrap CSS
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    Custom CSS for styling
+    <style>
+        /* Custom styles for the user orders page */
+        body {
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+
+        .order-card {
+            margin-bottom: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .order-item {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .total-amount {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="mt-4 mb-4">My Orders</h1>
+
+        <div th:each="order : ${userOrders}" class="order-card">
+            <h5 th:text="'Order Number: ' + ${order.orderNumber}" class="mb-3"></h5>
+            <p th:text="'Order Date: ' + ${order.orderDate}" class="mb-2"></p>
+
+            <div th:each="orderItem : ${order.orderItems}" class="order-item">
+                <div class="row align-items-center">
+                    <div class="col-md-2">
+                        <img th:src="@{'/images/' + ${orderItem.product.imageFileName}}" class="img-fluid" alt="Product Image">
+                        
+                    </div>
+                    <div class="col-md-4">
+                        <span th:text="${orderItem.product.name}"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span th:text="${orderItem.quantity}"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span th:text="'₹' + ${orderItem.product.price}"></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span th:text="'₹' + ${orderItem.totalPrice}"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <p class="mb-1">Shipping Charges: ₹<span th:text="${order.shippingCharges}"></span></p>
+                    <p class="mb-0">Subtotal: ₹<span th:text="${order.subtotal}"></span></p>
+                </div>
+                <div class="col-md-6 text-right">
+                    <h4 class="total-amount mb-0">Total Amount: ₹<span th:text="${order.totalAmount}"></span></h4>
+                </div>
+            </div>
+
+            Additional elements inspired by Flipkart
+            <div class="row mt-3">
+                <div class="col-sm-6">
+                    <a href="#" class="btn btn-primary">Track Order</a>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <a href="#" class="btn btn-outline-primary">Write a Review</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    Bootstrap JS (optional if needed)
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
+  -->
+  
+  
+  <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User Orders</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS for styling -->
+    <style>
+        /* Custom styles for the user orders page */
+        body {
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+
+        .order-card {
+            margin-bottom: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .order-item {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .total-amount {
+            font-weight: bold;
+        }
+        .product-image {
+            max-height: 140px; /* Set the maximum height */
+            max-width: 140px; /* Set the maximum width */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="mt-4 mb-4">My Orders</h1>
+
+        <div th:each="order : ${userOrders}" class="order-card">
+            <h5 th:text="'Order Number: ' + ${order.orderNumber}" class="mb-3"></h5>
+            <p th:text="'Order Date: ' + ${order.orderDate}" class="mb-2"></p>
+
+            <div class="table-responsive">
+                <table class="table order-item-table">
+                    <thead>
+                        <tr>
+                            <th>Product Image</th>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Price (₹)</th>
+                            <th>Total Price (₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="orderItem : ${order.orderItems}" class="order-item">
+                            <td>
+
+<a th:href="@{cart/viewproduct(id=${orderItem.product.id})}"><img th:src="@{'/images/' + ${orderItem.product.imageFileName}}" class="img-fluid product-image" alt="Product Image"></a>
+
+</td>
+                            <td th:text="${orderItem.product.name}"></td>
+                            <td th:text="${orderItem.quantity}"></td>
+                            <td th:text="'₹' + ${orderItem.product.price}"></td>
+                            <td th:text="'₹' + ${orderItem.totalPrice}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-6">
+                    <p class="mb-1">Shipping Charges: ₹<span th:text="${order.shippingCharges}"></span></p>
+                    <p class="mb-0">Subtotal: ₹<span th:text="${order.subtotal}"></span></p>
+                </div>
+                <div class="col-md-6 text-right">
+                    <h4 class="total-amount mb-0">Total Amount: ₹<span th:text="${order.totalAmount}"></span></h4>
+                </div>
+            </div>
+
+            <!-- Additional elements inspired by Flipkart -->
+            <div class="row mt-3">
+                <div class="col-sm-6">
+                    <a href="#" class="btn btn-primary">Track Order</a>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <a href="#" class="btn btn-outline-primary">Write a Review</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS (optional if needed) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
+  

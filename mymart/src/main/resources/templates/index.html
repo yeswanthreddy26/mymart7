@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my mart</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    
+    
+    
+    <style>
+
+    .navbar {
+            background-color: #ADD8E6; 
+            
+        }
+     
+        .jumbotron {
+            background-color: #f8f9fa; 
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3; 
+            border-color: #0056b3;
+        }
+        .card-body {
+            background-color: #fff; 
+           
+        }
+        .card-body:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+        }
+       
+
+
+ .navbar-nav {
+        display: flex;
+        list-style: none;
+        padding: 0;
+       
+    }
+
+ .nav-item {
+        position: relative;
+        margin-right: 10px; 
+    }
+
+    .dropdown {
+        position: relative;
+    }
+
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+    }
+
+    .nav-item:hover .dropdown-menu {
+        display: block;
+    }
+    
+
+       .dropdown-submenu {
+            position: relative;
+             padding-bottom:15px;
+            
+             
+        }
+
+        .dropdown-submenu .dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -1px;
+           
+        }
+       
+     
+   
+.dropdown-item:hover {
+  background-color: aliceblue;
+  color:black;
+  
+  
+}
+   
+   
+   
+   
+   footer {
+           background-color: black; /* Set the background color */
+    color: red; /* Set text color */
+   padding: 60px 0; /* Increase padding to give more space inside the footer */
+    margin-bottom: 0px; /* Add margin to push it to the bottom of the page */
+    height:200px
+            }
+        .footer-link {
+            color: #8B0000;
+        }
+        
+    .col-md-4 {
+        position: relative; /* Change from absolute to relative positioning */
+    }
+    .mt-5 {
+        /* Adjust top property to move the section further down */
+        top: 70px; /* Adjust as needed */
+    } 
+    
+    .col-md-4 .list-unstyled {
+    display: flex; /* Display the list items horizontally */
+    flex-wrap: wrap; /* Allow items to wrap to the next line if there's not enough space */
+}
+
+.col-md-4 .list-unstyled li {
+    margin-right: 15px; /* Add some space between each list item */
+}
+
+
+
+ #backToTopBtn {
+
+ display: none; /* Hide the button by default */
+
+ position: fixed;
+
+ bottom: 20px;
+
+ right: 30px;
+
+ z-index: 99;
+
+ font-size: 18px;
+
+ border: none;
+
+ outline: none;
+
+ background-color: #232f3e; /* Match your footer background color */
+
+ color: white;
+
+ cursor: pointer;
+
+ padding: 15px;
+
+ border-radius: 4px;
+
+ }
+
+
+
+ #backToTopBtn:hover {
+
+ background-color: #444; /* Darker background color on hover */
+
+ }
+
+ 
+
+ footer.footer1 {
+
+ 
+
+ text-align: center;
+ top:10%;
+
+ font-size: 18px; /* Adjust the font size as needed */
+ background-color: #696969;
+ 
+
+ }
+
+ 
+ .col-md-4 .list-unstyled {
+    display: flex; /* Display the list items horizontally */
+    flex-wrap: wrap; /* Allow items to wrap to the next line if there's not enough space */
+}
+
+.col-md-4 .list-unstyled li {
+    margin-right: 15px; /* Add some space between each list item */
+}
+ul li{
+        list-style-type: none;
+    }
+   
+   
+   /* languages banned hide css */
+
+.goog-te-banner-frame {
+    display:none !important
+    }
+  
+  .skiptranslate {
+    display:none !important
+    }
+    body {
+ top: 0px !important; 
+}
+
+
+/* location css */
+
+#addressContainer {
+	display: none;
+	position: absolute;
+	top: calc(100% + 3px);
+	right: 80px;
+	width: 200px;
+	background-color: #f4f4f4;
+	padding: 10px;
+	border-radius: 5px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	font-size: 14px;
+	z-index: 999;
+}
+
+@media(max-width:767px){
+.collapse navbar-collapse{
+width:50%;
+margin-bottom:30px;
+
+}
+}
+ .alert{
+     position: absolute;
+     z-index:3;
+    left:20%;
+    justify-content:center;
+    align-item:center;
+     
+    
+    }
+
+   body{
+			overflow-x: hidden;
+		}
+		
+		.btn-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1; /* Ensure it's on top of other content */
+}
+    </style>
+    
+     <script>
+  $(document).ready(function(){
+	    // Hide all dropdown menus initially
+	    $('.dropdown-menu').hide();
+	    
+	    // When hovering over a nav-link dropdown-toggle, show its dropdown-menu and hide others
+	    $('.nav-link.dropdown-toggle').hover(function(){
+	        $('.dropdown-menu').hide();
+	        $(this).next('.dropdown-menu').show();
+	    });
+	    
+	    // When hovering over a dropdown-item dropdown-toggle, show its dropdown-menu and hide others
+	    $('.dropdown-item.dropdown-toggle').hover(function(){
+	        $(this).closest('.dropdown-menu').find('.dropdown-menu').hide();
+	        $(this).next('.dropdown-menu').show();
+	    });
+	    
+	    // Hide dropdown menus when mouse is not hovering over any dropdown
+	    $('.dropdown').mouseleave(function() {
+	        $('.dropdown-menu').hide();
+	    });
+	});
+
+
+
+
+</script>
+</head>
+<body>
+   
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ADD8E6;color: black;">
+        
+<div class="collapse navbar-collapse" id="navbarSupportedContent">			
+			
+            
+            
+          
+            
+            
+            <ul class="navbar-nav">
+    <li class="nav-item" th:each="navbarItem : ${navbarWithDropdownData}">
+        <div class="dropdown">
+            <a th:if="${#lists.isEmpty(navbarItem.value)}"
+               class="nav-link text-dark"
+               th:href="${navbarItem.key != null ? (navbarItem.key.itemName == 'Admin' ? '/Admin/' + navbarItem.key.itemName : navbarItem.key.itemName) : ''}"
+               th:text="${navbarItem.key != null ? navbarItem.key.itemName : ''}"></a>
+
+            <a th:if="${not #lists.isEmpty(navbarItem.value)}"
+               class="nav-link dropdown-toggle text-dark"
+               href="#"
+               id="navbarDropdown"
+               role="button"
+               data-toggle="dropdown"
+               aria-haspopup="true"
+               aria-expanded="false"
+               th:text="${navbarItem.key != null ? navbarItem.key.itemName : ''}"></a>
+
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <div th:each="dropdownItem : ${navbarItem.value}">
+                    <div class="dropdown-submenu">
+                        <a class="dropdown-item dropdown-toggle" href="#" th:href="${dropdownItem.itemName == 'Admin' ? '/Admin/' + dropdownItem.itemName : '/User/' + dropdownItem.itemName}" th:text="${dropdownItem.itemName}"></a>
+                        <div class="dropdown-menu">
+                            <div th:each="dropChild : ${dropdownItem.dropChildren}">
+                                <div class="dropdown-submenu">
+                                    <a class="dropdown-item dropdown-toggle" href="#" th:href="${dropChild.itemName == 'Admin' ? '/Admin/' + dropChild.itemName : '/User/' + dropChild.itemName}" th:text="${dropChild.itemName}"></a>
+                                    <div class="dropdown-menu">
+                                        <div th:each="dropChildOfChild : ${dropChild.dropChildrenOfChild}">
+                                            <div class="dropdown-submenu">
+                                                <a class="dropdown-item dropdown-toggle" href="#" th:href="${dropChildOfChild.itemName == 'Admin' ? '/Admin/' + dropChildOfChild.itemName : '/User/' + dropChildOfChild.itemName}" th:text="${dropChildOfChild.itemName}"></a>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" th:each="grandChild : ${dropChildOfChild.grandChildren}" th:href="${grandChild.itemName == 'Admin' ? '/Admin/' + grandChild.itemName : '/User/' + grandChild.itemName}" th:text="${grandChild.itemName}"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>
+
+            
+          
+           <!-- Search Bar  -->        
+            <form class="form-inline my-2 my-lg-0"   id="labnol" action="/search" method="get">
+    <input class="form-control mr-sm-1" type="search"  id="transcript" name="query" placeholder="Search" aria-label="Search" style="width: 220px;">
+    <svg onclick="startDictation(),play()"  xmlns="http://www.w3.org/2000/svg" width="27" height="27"  fill="currentColor" class="bi bi-mic" viewBox="0 0 16 16"  style="color:	#191570;" >
+  <path d="M3.5 6.5A.5.5 0 0 1 4 7v1a4 4 0 0 0 8 0V7a.5.5 0 0 1 1 0v1a5 5 0 0 1-4.5 4.975V15h3a.5.5 0 0 1 0 1h-7a.5.5 0 0 1 0-1h3v-2.025A5 5 0 0 1 3 8V7a.5.5 0 0 1 .5-.5"/>
+  <path d="M10 8a2 2 0 1 1-4 0V3a2 2 0 1 1 4 0zM8 0a3 3 0 0 0-3 3v5a3 3 0 0 0 6 0V3a3 3 0 0 0-3-3"/>
+</svg> 
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> <br>
+</form>
+            
+            
+            
+            
+           
+<!-- Speech Recognition  -->
+<script>
+  function startDictation() {
+    if (window.hasOwnProperty('webkitSpeechRecognition')) {
+      var recognition = new webkitSpeechRecognition();
+
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      recognition.lang = 'en-US';
+      recognition.start();
+recognition.onresult = function (e) {
+        document.getElementById('transcript').value = e.results[0][0].transcript;
+        recognition.stop();
+        document.getElementById('labnol').submit();
+      };
+
+      recognition.onerror = function (e) {
+        recognition.stop();
+      };
+    }
+  }
+<!-- beep sound code--->
+        function play() { 
+            var audio = new Audio( 
+'https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3'); 
+            audio.play(); 
+        } 
+    </script> 
+
+
+</div>
+
+            
+            
+      
+             
+             
+            <ul class="navbar-nav ml-4">
+                <li class="nav-item">
+             
+                    <a class="nav-link text-dark" id="locationButton"><i class="fas fa-map-marker-alt" style="color: #28a745;"></i> Location</a>
+                </li>
+                
+				
+		 <div   id="addressContainer"></div>
+                
+           		<script>
+  document.getElementById('locationButton').addEventListener('click', function() {
+   
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var latitude = position.coords.latitude;
+      var longitude = position.coords.longitude;
+
+      
+      fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
+        .then(response => response.json())
+        .then(data => {
+          var address = data.display_name;
+          document.getElementById('addressContainer').textContent = 'Your current address: ' + address;
+          document.getElementById('addressContainer').style.display = 'block';
+        })
+        .catch(error => {
+          console.error('Error fetching address:', error);
+        });
+    });
+  });
+</script>
+        
+             
+        <!--       
+               <li class="nav-item" th:unless="${#authorization.expression('isAuthenticated()')}">
+    <a class="nav-link text-dark" href="/login">
+        <i class="fas fa-user-circle fa-lg" style="color: #007bff;"></i> Login
+    </a>
+</li>
+
+<li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">
+    <a class="nav-link text-dark" href="/profile">
+        <i class="fas fa-user-circle fa-lg" style="color: #007bff;"></i> <span th:text="${#authentication.principal.name}"></span>
+    </a>
+</li>
+
+ -->
+
+
+ <li class="nav-item dropdown" th:if="${#authorization.expression('isAuthenticated()')}">
+            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user-circle fa-lg" style="color: #007bff;"></i> <span th:text="${#authentication.principal.name}"></span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" th:href="@{/profiles(name=${#authentication.principal.name})}">My Profile</a>
+                <a class="dropdown-item" href="/wishlist/view">Wishlist</a>
+                <a class="dropdown-item" href="/cart">Cart</a>
+                <a class="dropdown-item" href="/orders">My Orders</a>
+                <a class="dropdown-item" href="/logout">Logout</a>
+            </div>
+        </li>
+
+        <li class="nav-item" th:unless="${#authorization.expression('isAuthenticated()')}">
+
+                <a class="nav-link text-dark " href="/login/profile/" role="button"  aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user-circle fa-lg" style="color: #007bff;"></i> Login
+                </a>
+
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="/cart"><i class="fas fa-shopping-cart fa-lg" style="color:red"></i> Cart</a>
+                </li>
+                
+       
+                
+                <li class="nav-item" th:if="${#authorization.expression('isAuthenticated()')}">
+    <a class="nav-link text-dark" th:href="@{/logout}">
+        <i class="fas fa-sign-out-alt fa-lg" style="color: #007bff;"></i> Logout
+    </a>
+</li>
+             </ul>
+        </div>
+    </nav>
+
+
+
+  <div class="container" style="position:absolute ;margin-top:17%;margin-left:10%">
+	  
+   
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    
+   
+    <center>
+        <div class="popup">
+         <div class="alert  alert-dismissible fade show w-50" style="background: rgb(138, 238, 230);" role="alert" th:each="image:${image}">
+            <strong><h4 style="color: blue;"><b><i>Welcome To MyMart</i></b></h4></strong> 
+            
+            
+           <center> <span class="showpopuplogo"><img  th:src="@{'/images/'+${image.popupimage}}" style="width: 18%; height: 18%; background: transparent;"  alt="..."></span></center>
+           
+        
+            
+
+           <main>
+            <div id="popupContainer" class="popup-container" >
+                <div class="popup1">
+                   
+                    <div class="discount">
+                    <div class="description"><i ><h2  style="color: green;"  th:text="${image.popupdata}" ></h2></i></div></div>
+                    
+                       
+                    <div class="discount">
+                    <div class="description"><i style="color: green;"  th:text="${image.popupofferdata}" ></i></div></div>
+                </div>
+                </div> 
+        </main>   
+        
+         <marquee style="background:transparent; color: red; height:30px; padding: 2px; text-align: center;">
+            <div class="discount">
+                    <div class="description"><b><i  th:text="${image.popupmarqueedata}"></i></b></div></div>
+         </marquee>
+           
+            
+           
+            <button type="button" style ="background: transparent;" class="btn-close" data-dismiss="alert" aria-label="Close">X</button>
+          </div>
+          </div>
+        </center>
+      </div>
+    
+
+
+
+      <!-- ----------Carousal slides Dynamic-------------->  
+
+ <section class="container mt-4">
+	<div id="carouselExampleIndicators" class="carousel slide"
+			data-ride="carousel" data-interval="1500">
+			<ol class="carousel-indicators">
+				<li th:each="image, status : ${images}"
+					data-target="#carouselExampleIndicators"
+					th:attr="data-slide-to=${status.index}"
+					th:classappend="${status.index == 0} ? 'active'"></li>
+			</ol>
+			<div class="carousel-inner">
+				<div th:each="image, status : ${images}" class="carousel-item"
+					th:classappend="${status.index == 0} ? 'active'">
+					
+					 <img th:src="@{'/images/' + ${image.imageUrl}}"
+						class="d-block w-100" th:alt="'Slide ' + ${status.index + 1}" />
+				</div>
+			</div>
+			<a class="carousel-control-prev" href="#carouselExampleIndicators"
+				role="button" data-slide="prev"> <span
+				class="carousel-control-prev-icon" aria-hidden="true"></span> <span
+				class="sr-only">Previous</span>
+			</a> <a class="carousel-control-next" href="#carouselExampleIndicators"
+				role="button" data-slide="next"> <span
+				class="carousel-control-next-icon" aria-hidden="true"></span> <span
+				class="sr-only">Next</span>
+			</a>
+		</div>
+
+</div>
+</section>
+
+
+ <!-- ----------Cards Dynamic-------------->  
+
+<section class="container mt-4 ">
+<div class="container-fluid px-0 position-relative">
+
+    	<div class="cards-container">
+			<div class="container">
+				<div class="row">
+					<div th:each="cardItem : ${cardItems}" class="col-md-3 mb-3">
+						<div class="card">
+							<div class="card-body">
+								<img th:src="@{'/images/' + ${cardItem.imageUrl}}"
+									class="card-img-top" th:alt="${cardItem.title}">
+								<h5 class="card-title" th:text="${cardItem.title}">Card
+									title</h5>
+								<!-- You can add more content here if needed -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+</div>
+
+</section>
+
+
+
+    <div class="container" style="margin-top:8%;margin-left:10%;">
+    <!--  <h1 class="text-center my-4 bg-info">Corousel Images </h1> -->
+
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
+        <div class="carousel-inner" style="margin-left:9%">
+            <div th:each="card, iterStat : ${card}" class="carousel-item" th:classappend="${iterStat.index == 0} ? 'active'">
+                <div class="row">
+                    <div class="col">
+
+                        <center><table>
+                            <tr >
+
+                                <td>
+
+                                    <div class="row movingcard"  >
+
+
+                                        <div class="card border-success mb-3  "  th:each="cards:${card}" style="width: 100%; margin-top:25%;margin-left:-80%; background-image: linear-gradient(#ddd6f3,#faaca8);background-repeat:no-repeat;">
+                                            <div class="card-header bg-transparent border-success">
+
+                                                <center> <img th:src="@{'/images/' + *{card.image1}}" alt="..."  height="125px"  width="180px"></center>
+
+                                            </div>
+                                            <div class="card-body1 " style="  justify-content:center; align-item:center;padding:10px" >
+                                                <div class="card-text">
+                                                    <b>Name :</b>
+                                                    <span  th:text="*{card.name1}"></span>
+                                                </div>
+
+                                                <div class="card-text">
+                                                    <b>brand :</b>
+                                                    <span class="card-text" th:text="*{card.brand1}"></span>
+                                                </div>
+
+                                                <div class="card-text">
+                                                    <b> Price :</b>
+                                                    <span class="card-text" th:text="*{card.price1}"></span>
+                                                </div>
+
+
+                                                <div class="card-text">
+                                                    <b> Description :</b>
+                                                    <span class="card-text" th:text="*{card.description1}"></span>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer ">
+                                                <a class=" btn btn-success " href="#">AddToCart</a>
+                                                <a class=" btn btn-warning " href="#">BuyNow</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </td>
+                                <td>
+
+                                    <div class="row" >
+
+
+                                        <div class="card border-success mb-3  "  th:each="cards:${card}" style="width: 100%; margin-top:25%; margin-left:-39%; background-image: linear-gradient(#FFECD2,#FCB69F);background-repeat:no-repeat;">
+                                            <div class="card-header bg-transparent border-success">
+
+                                                <center> <img th:src="@{'/images/' + *{card.image2}}" alt="..."  height="125px"  width="180px"></center>
+
+                                            </div>
+                                            <div class="card-body2 " style="  justify-content:center; align-item:center;padding:10px">
+                                                <div class="card-text">
+                                                    <b>Name :</b>
+                                                    <span  th:text="*{card.name2}"></span>
+                                                </div>
+
+                                                <div class="card-text">
+                                                    <b>brand :</b>
+                                                    <span class="card-text" th:text="*{card.brand2}"></span>
+                                                </div>
+
+                                                <div class="card-text">
+                                                    <b> Price :</b>
+                                                    <span class="card-text" th:text="*{card.price2}"></span>
+                                                </div>
+
+
+                                                <div class="card-text">
+                                                    <b> Description :</b>
+                                                    <span class="card-text" th:text="*{card.description2}"></span>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer ">
+                                                <a class=" btn btn-success " href="#">AddToCart</a>
+                                                <a class=" btn btn-warning " href="#">BuyNow</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </td>
+                                <!-- Cards -------------------------------------------------------->
+                                <td>
+
+                                    <div class="row" >
+
+
+                                        <div class="card border-success mb-3  "  th:each="cards:${card}" style="width: 100%;  margin-top:25%;  margin-left:0%; background-image: linear-gradient(#93A5CF,#E4EfE9);background-repeat:no-repeat;">
+                                            <div class="card-header bg-transparent border-success">
+
+                                                <center> <img th:src="@{'/images/' + *{card.image3}}" alt="..."  height="125px"  width="180px"></center>
+
+                                            </div>
+                                            <div class="card-body3 "style="  justify-content:center; align-item:center;padding:10px">
+                                                <div class="card-text">
+                                                    <b>Name :</b>
+                                                    <span  th:text="*{card.name3}"></span>
+                                                </div>
+
+                                                <div class="card-text">
+                                                    <b>brand :</b>
+                                                    <span class="card-text" th:text="*{card.brand3}"></span>
+                                                </div>
+
+                                                <div class="card-text">
+                                                    <b> Price :</b>
+                                                    <span class="card-text" th:text="*{card.price3}"></span>
+                                                </div>
+
+
+                                                <div class="card-text">
+                                                    <b> Description :</b>
+                                                    <span class="card-text" th:text="*{card.description3}"></span>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer ">
+
+                                                <a class=" btn btn-success " href="#">AddToCart</a>
+                                                <a class=" btn btn-warning " href="#">BuyNow</a>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        </table></center>
+                    </div>
+                </div> <br> <br>
+
+            </div>
+        </div>
+        <button class="carousel-control-prev  " type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+<!--            <span class="visually-hidden text-primary">Previous</span>-->
+        </button>
+        <button class="carousel-control-next " type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+<!--            <span class="visually-hidden text-primary " >Next</span>-->
+            <span class="carousel-control-next-icon " style="color:blue" aria-hidden="true"> </span>
+        </button>
+
+    </div>
+</div>
+</div>
+
+
+
+
+
+   
+   
+   
+   
+  
+   
+  
+    
+    
+    
+   <footer class="footer mt-9 py-3" style="background:linear-gradient(skyblue,white,pink);color:black;height:300px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"style="left:15%">
+                <h5><span style="color: black;">About Us</span></h5>
+                <ul>
+                
+                
+                    <li th:each="aboutus : ${aboutusList}">
+                        <a style="color:black" th:href="@{'/aboutus/' + ${aboutus.id}}" th:text="${aboutus.aboutus}"></a>
+                        
+                    </li>
+                    
+                </ul>
+            </div>
+            <div class="col-md-3"style="left:15%">
+                <h5><span style="color: black;">Consumer Policy</span></h5>
+                <ul>
+                    <li th:each="consumerpolicy : ${consumerpolicyList}">
+                        <a style="color:black" th:href="@{'/consumerpolicy/' + ${consumerpolicy.id}}" th:text="${consumerpolicy.consumerpolicy}"></a>
+                    <a href="https://www.google.com" target="_blank"></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-3" style="left:15%">
+                <h5><span style="color: black;">Customer Support</span></h5>
+                <ul>
+                    <li th:each="customersupport : ${customersupportList}">
+                        <a style="color:black" th:href="@{'/customersupport/' + ${customersupport.id}}" th:text="${customersupport.customersupport}"></a>
+                    </li>
+                </ul> 
+            </div>
+            
+
+
+ <div class="col-md-3 mt-5"  style="top:80%;left:20%;">
+    <h5><span style="color: black;"></span></h5>
+    <ul class="list-unstyled">
+        <li th:each="downloadapps : ${downloadappsList}" style="margin-bottom: 12%;display:ruby;">
+            <a href="https://play.google.com/store/apps/details?id=sa.com.mymart&pcampaignid=web_share"><img th:src="@{'/images/' + ${downloadapps.imageFileName}}" alt="..." width="30" height="30"></a>
+        </li>
+    </ul> 
+</div>
+
+
+<div class="col-md-3 mt-3" style="left:15%">
+                <h5><span style="color:black;">Mail Us</span></h5>
+                <ul class="list-unstyled">
+                    <li th:each="mailus : ${mailusList}">
+                        <a "@{'/mailus/' + ${mailus.id}}" th:text="${mailus.mailus}"></a>
+                    </li>
+                </ul> 
+            </div>
+            
+<span style="position:absolute;left:0%;"><img src="/images/logo.jpeg" alt="---" height="150" width="150"style="margin-right:10px;align-items:self-start:"></span>
+
+
+            <div class="col-md-3 mt-3"style="left:20%;">
+                <h5><span style="color: black;">Registered Office Address</span></h5>
+                <ul class="list-unstyled">
+                    <li th:each="roaddress : ${roaddressList}">
+                        <a  href="https://www.google.com/maps/place/My+Mart/@16.5191345,80.3960663,11z/data=!4m10!1m2!2m1!1smy+mart!3m6!1s0x3a35e4d3b916fe71:0x8729248c6061bf9b!8m2!3d16.5191345!4d80.6844574!15sCgdteSBtYXJ0IgOIAQFaCSIHbXkgbWFydJIBDWdyb2Nlcnlfc3RvcmXgAQA!16s%2Fg%2F11f2r908x4?entry=ttu" target="_blank" style="font-size: 17px;color:black;" "@{'/roaddress/' + ${roaddress.id}}" th:text="${roaddress.roaddress}"></a>
+                    </li>
+                </ul> 
+            </div>
+            
+            
+ </div>
+</div>
+</footer>
+
+<footer class="footer1" style="background:linear-gradient(pink,white,skyblue)">
+<!-- New section for the three links -->
+
+
+
+ <div class="col-md-12 mt-6 mt-auto text-center background-color:red;margin-left: 50%; margin-top: 50%;">
+
+<center>
+ <div class="col-md-3 ">
+    <h5><span style="color: black;display:flex;"></span></h5>
+    
+    <ul class="list-unstyled">
+        <li th:each="keepintouch : ${keepintouchList}" style="margin-bottom: 15px;display: ruby;">
+        <a style="align-items: center;" th:href="@{'/Keepintouch/' + ${keepintouch.id}}"><img th:src="@{'/images/' + ${keepintouch.imageFileName}}" alt="..." width="30" height="30"></a>
+        </li>
+    </ul> 
+</div>
+</center>
+
+
+
+
+
+
+
+ 
+
+ <a href="conditions" class="mr-3">Conditions of Use & Sale</a>
+
+ <a href="cancelreturn" class="mr-3">Privacy Notice</a>
+
+ <a href="intrest">Interest-Based Ads</a>
+
+ </div>
+
+ <h6><span style="color: black;">© 2024, MyMart.com, Inc. or its affiliates</span></h6>
+
+ <button onclick="topFunction()" id="backToTopBtn" title="Go to top">&#8593;</button>
+ 
+
+  
+  
+      <!-- google languages script -->
+  
+  
+  <script type="text/javascript"> 
+   function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+  }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+  
+  
+  
+  
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>
